@@ -13,15 +13,25 @@ struct ContentView: View {
     @State private var points: [SIMD3<Float>] = []
 
     var body: some View {
-        VStack {
-            Model3D(named: "Scene", bundle: realityKitContentBundle)
-                .padding(.bottom, 50)
-
-            Text("Hello, world!")
-
-            ToggleImmersiveSpaceButton()
+        RealityView{ content in
+            for point in points{
+                let sphere = ModelEntity(mesh: .generateSphere(radius: 0.01))
+                sphere.position = point
+                sphere.model?.materials = [SimpleMaterial( color: .blue, isMetallic: false)]
+                content.add(sphere)
+            }
+        } update:{ content in
+            content.entities.removeAll()
+            for point in points {
+                let sphere = ModelEntity(mesh: .generateSphere(radius: 0.01))
+                sphere.position = point
+                sphere.model?.materials = [SimpleMaterial(
+                    color: .blue, isMetallic: false
+                )]
+                content.add
+            }
+            
         }
-        .padding()
     }
 }
 
