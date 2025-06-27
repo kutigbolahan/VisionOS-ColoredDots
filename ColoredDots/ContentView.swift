@@ -28,10 +28,19 @@ struct ContentView: View {
                 sphere.model?.materials = [SimpleMaterial(
                     color: .blue, isMetallic: false
                 )]
-                content.add
+                content.add(sphere)
             }
             
         }
+        .gesture(
+            TapGesture()
+                    .targetedToAnyEntity()
+                    .onEnded { gesture in
+                        let location = gesture.entity.position(relativeTo: nil)
+                        points.append(location)
+                    }
+                )
+        
     }
 }
 
