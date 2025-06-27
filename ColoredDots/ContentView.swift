@@ -10,6 +10,7 @@ import RealityKit
 import RealityKitContent
 
 struct ContentView: View {
+    @State private var points: [SIMD3<Float>] = []
 
     var body: some View {
         VStack {
